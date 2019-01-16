@@ -1,10 +1,12 @@
 package com.games.toki.pot.domain.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Flight {
 	private String id;
 	private String departureFrom;
