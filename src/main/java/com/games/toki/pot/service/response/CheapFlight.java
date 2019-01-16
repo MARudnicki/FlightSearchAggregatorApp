@@ -1,10 +1,12 @@
 package com.games.toki.pot.service.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CheapFlight {
 	private String id;
 	private String departureFrom;
