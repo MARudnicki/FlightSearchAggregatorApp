@@ -72,12 +72,22 @@ https://cdn.pbrd.co/images/HWLZcSW.png
 
 #Tech Debt - Remaining things to do list
 - Moving all the direct literal check to enum
-- making backend changes to segregare search criteria parameter and filter
+- making backend changes to segregate search criteria parameter and filter
   as of now when we give some value in criteria, then response is fetched with flights having those as 
   part of flight
   E.g. Category is set to "Cheap" in search criteria
   then all the flights will be returned, which are having flight class "Cheap" and so on
 - test coverage can be increased
 - filter & sort by date is not working correctly and can be taken as a next enhancement 
+
+
+# NOTE - BY DEFAULT PAGE SIZE IS 2 & IT RETURNS FIRST PAGE ONLY
+
+
+Here are the sample local sandbox link for seeing the response
+
+http://localhost:8080/flights/api/search?pageSize=20
+
+http://localhost:8080/flights/api/search?pageSize=20&sortBy=Category
   
   
