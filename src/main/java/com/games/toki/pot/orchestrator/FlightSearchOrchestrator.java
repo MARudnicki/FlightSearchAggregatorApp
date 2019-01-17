@@ -2,6 +2,9 @@ package com.games.toki.pot.orchestrator;
 
 
 import com.games.toki.pot.orchestrator.cache.FlightsResponseLocalStore;
+import com.games.toki.pot.orchestrator.helper.ResponseFilterHelper;
+import com.games.toki.pot.orchestrator.helper.ResponsePaginationHelper;
+import com.games.toki.pot.orchestrator.helper.ResponseSortHelper;
 import com.games.toki.pot.service.BusinessFlightService;
 import com.games.toki.pot.service.CheapFlightService;
 import com.games.toki.pot.service.aggregator.FlightResponseConverterAndAggregator;
@@ -25,15 +28,25 @@ public class FlightSearchOrchestrator {
 	private final FlightResponseConverterAndAggregator flightResponseConverterAndAggregator;
 	private final FlightsResponseLocalStore flightsResponseLocalStore;
 
+	private final ResponseFilterHelper responseFilterHelper;
+	private final ResponseSortHelper responseSortHelper;
+	private final ResponsePaginationHelper responsePaginationHelper;
+
 	@Autowired
 	public FlightSearchOrchestrator(CheapFlightService cheapFlightService, BusinessFlightService businessFlightService,
 									FlightResponseConverterAndAggregator flightResponseConverterAndAggregator,
-									FlightsResponseLocalStore flightsResponseLocalStore) {
+									FlightsResponseLocalStore flightsResponseLocalStore,
+									ResponseFilterHelper responseFilterHelper,
+									ResponseSortHelper responseSortHelper,
+									ResponsePaginationHelper responsePaginationHelper) {
 
 		this.cheapFlightService = cheapFlightService;
 		this.businessFlightService = businessFlightService;
 		this.flightResponseConverterAndAggregator = flightResponseConverterAndAggregator;
 		this.flightsResponseLocalStore = flightsResponseLocalStore;
+		this.responseFilterHelper = responseFilterHelper;
+		this.responseSortHelper = responseSortHelper;
+		this.responsePaginationHelper = responsePaginationHelper;
 	}
 
 	public Flux<Flight> searchFlights(SearchCriteria searchCriteria) {
@@ -58,6 +71,15 @@ public class FlightSearchOrchestrator {
 		if (!Optional.of(searchCriteria).isPresent()) {
 			return flightsResponseAsFlux;
 		}
+
+
+		//fixme - issue with filter logic
+		//flightsResponseAsFlux = responseFilterHelper.filter(flightsResponseAsFlux, searchCriteria);
+
+		flightsResponseAsFlux = responseSortHelper.sort(flightsResponseAsFlux, searchCriteria);
+
+		flightsResponseAsFlux = responsePaginationHelper.paginate(flightsResponseAsFlux, searchCriteria);
+
 
 		return flightsResponseAsFlux;
 	}
