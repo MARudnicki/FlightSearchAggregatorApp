@@ -9,7 +9,7 @@ public class BusinessFlightServiceTest {
 
 	@Test
 	public void testSearch() {
-		BusinessFlightRepository repository = new BusinessFlightRepository();
+		BusinessFlightRepository repository = new BusinessFlightRepository("https://obscure-caverns-79008.herokuapp.com", 30_000, 30_000);
 
 		BusinessFlightService businessFlightService = new BusinessFlightService(repository);
 
