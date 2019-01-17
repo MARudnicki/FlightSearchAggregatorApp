@@ -4,6 +4,7 @@ package com.games.toki.pot.service.repository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.toki.pot.service.response.BusinessFlight;
+import com.games.toki.pot.service.response.parser.BusinessFlightsResponseParser;
 import com.games.toki.pot.util.WebClientUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,6 @@ public class BusinessFlightRepository {
 			System.out.print(e.getStackTrace());
 		}
 
-		return Flux.just(new BusinessFlight());
+		return BusinessFlightsResponseParser.parse(jsonNode);
 	}
 }

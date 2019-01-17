@@ -4,6 +4,7 @@ package com.games.toki.pot.service.repository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.toki.pot.service.response.CheapFlight;
+import com.games.toki.pot.service.response.parser.CheapFlightsResponseParser;
 import com.games.toki.pot.util.WebClientUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,6 @@ public class CheapFlightRepository {
 			System.out.print(e.getStackTrace());
 		}
 
-		return Flux.just(new CheapFlight());
+		return CheapFlightsResponseParser.parse(jsonNode);
 	}
 }
